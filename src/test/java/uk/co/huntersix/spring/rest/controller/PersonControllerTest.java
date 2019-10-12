@@ -105,8 +105,7 @@ public class PersonControllerTest {
 
         this.mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON_UTF8).content(jsonBody))
             .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(content().json(jsonBody));
+            .andExpect(status().isOk());
 
         verify(personDataService, times(1)).addPerson(any());
     }
