@@ -19,29 +19,51 @@ public class PersonDataService {
         new Person("Collin", "Brown")
     );
 
-    
+    private final List<Person> persons = new ArrayList<>(PERSON_DATA);
     
     public Person findPerson(String lastName, String firstName) {
-    	
-          return PERSON_DATA.stream()
-            .filter(p -> p.getFirstName().equalsIgnoreCase(firstName)
-                && p.getLastName().equalsIgnoreCase(lastName))
-            .collect(Collectors.toList()).get(0);
-    }
+    	  // Check if the person exists in the list of Persons
+    	  List<Person> foundPerson = persons.stream()
+    			  .filter(p -> p.getFirstName().equalsIgnoreCase(firstName)
+    		                && p.getLastName().equalsIgnoreCase(lastName))
+    			  .collect(Collectors.toList());
+    	  if(foundPerson.isEmpty()) {
+    		  System.out.println("PersonDataService: Person Not found");
+    		  throw new PersonNotFoundException();
+    	  }
+    	  return foundPerson.get(0);
+       }
          
     public List<Person> findSurname(String lastName) {
-    	
-    	List<Person> persons = new ArrayList<Person>();
-    	
-    	persons = PERSON_DATA.stream()
+    	   	 	
+    	return persons.stream()
                 .filter(p -> p.getLastName().equalsIgnoreCase(lastName))
                 .collect(Collectors.toList());
-    	
-    	return persons;
+    }
+    
+    
+    public void addPerson(Person p) {
+		// If person already exist, throw an exception
+    	if(existPerson(p))
+    	{
+    		throw new PersonAlreadyExistsException();
+    	}
+		persons.add(p);
 	}
     
     
-    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "Person not found")        
+    private boolean existPerson(Person p) {
+		
+		return existPerson(p.getFirstName(),p.getLastName());
+	}
+
+	private boolean existPerson(String firstName, String lastName) {
+		return persons.stream()
+				.anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName) 
+						&& p.getLastName().equalsIgnoreCase(lastName));
+	}
+
+	@ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "Person not found")        
     public static class PersonNotFoundException extends RuntimeException {
 
         PersonNotFoundException() {
@@ -55,13 +77,7 @@ public class PersonDataService {
         PersonAlreadyExistsException() {
             super("Person already exists");
         }
-    }
-
-	public void addPerson(Object any) {
-		// TODO Auto-generated method stub
-		
-	}
-  
+    }  
 }
 
 

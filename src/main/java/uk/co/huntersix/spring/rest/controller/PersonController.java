@@ -34,8 +34,8 @@ public class PersonController {
     @PostMapping("/person")
     public Person add(@RequestBody Person p)
     {
-    	personDataService.addPerson(p);
     	// Call the Service method
+    	personDataService.addPerson(p);
     	return p;
     }
 }
