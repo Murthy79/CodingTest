@@ -34,9 +34,10 @@ public class PersonController {
     @PostMapping("/person")
     public Person add(@RequestBody Person p)
     {
-    	// Call the Service method
+    	 // ID will be generated only if a new Person model is generated
+        //Person person = new Person(p.getFirstName(),p.getLastName());
+    	System.out.println("PersonController person & ID "+ p.toString() + "  "+ p.getId());
     	personDataService.addPerson(p);
-    	// Call Find Service to return with the ID
-    	return personDataService.findPerson(p.getLastName(), p.getFirstName());
+        return p;
     }
 }

@@ -42,4 +42,21 @@ public class Person {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    public String toString() {
+    	return firstName+" "+lastName;
+    	
+    }
+    
+    public boolean equals(Object obj){
+    	Person p = (Person) obj;
+        boolean status = false;
+        
+        if(this.firstName.equalsIgnoreCase(p.firstName) && this.lastName.equalsIgnoreCase(p.lastName)) {
+            status = true;
+        }
+        return status;
+    }
+    
+    
 }

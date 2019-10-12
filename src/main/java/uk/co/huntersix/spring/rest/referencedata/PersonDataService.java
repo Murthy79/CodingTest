@@ -48,7 +48,7 @@ public class PersonDataService {
     	{
     		throw new PersonAlreadyExistsException();
     	}
-		persons.add(new Person(p.getFirstName(),p.getLastName()));
+		persons.add(new Person(p.getFirstName(),p.getLastName()));		
 	}
     
     

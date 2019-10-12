@@ -54,7 +54,7 @@ public class PersonControllerTest {
     	this.mockMvc.perform(get("/person/lName/fName"))
     	.andDo(print())
     	.andExpect(status().reason("Person not found"))
-    	.andExpect(status().isNoContent());
+    	.andExpect(status().isNotFound());
     }
     
     @Test
@@ -100,8 +100,8 @@ public class PersonControllerTest {
     
     @Test
     public void shouldCreateNewPerson() throws Exception {
-        Person jonSnow = new Person("Murthy", "Narasimhan");
-        String jsonBody = new ObjectMapper().writeValueAsString(jonSnow);
+        Person murthy = new Person("Murthy", "Narasimhan");
+        String jsonBody = new ObjectMapper().writeValueAsString(murthy);
 
         this.mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON_UTF8).content(jsonBody))
             .andDo(print())

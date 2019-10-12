@@ -43,6 +43,8 @@ public class PersonDataServiceTest {
 		Person smith1 = service.findPerson("Smith", "Mary");
 		Person smith2 = new Person("Gina","Smith");
 		service.addPerson(smith2);
+		smith2 = service.findPerson("Smith", "Gina");
+		
 		
 		List<Person> actual = service.findSurname("Smith");
 		List<Person> expected = Arrays.asList(smith1,smith2);
@@ -60,9 +62,18 @@ public class PersonDataServiceTest {
 	@Test
 	public void addNewPerson() {
 		Person murthy = new Person("Murthy","Narasimhan");
+		
+		try {
+            service.findPerson("Murthy","Narasimhan");
+            fail();
+        } catch (PersonNotFoundException ignored) {
+        }
+		
 		service.addPerson(murthy);
 		
-		Person p = service.findPerson("Narasimhan", "Murthy"); 
+		Person p = service.findPerson("Narasimhan", "Murthy");
+		//System.out.println(murthy.toString() + "" + p.toString());
+		
 		assertEquals(murthy,p);	
 	}
 	
