@@ -36,6 +36,7 @@ public class PersonController {
     {
     	// Call the Service method
     	personDataService.addPerson(p);
-    	return p;
+    	// Call Find Service to return with the ID
+    	return personDataService.findPerson(p.getLastName(), p.getFirstName());
     }
 }

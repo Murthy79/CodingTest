@@ -48,7 +48,7 @@ public class PersonDataService {
     	{
     		throw new PersonAlreadyExistsException();
     	}
-		persons.add(p);
+		persons.add(new Person(p.getFirstName(),p.getLastName()));
 	}
     
     
@@ -63,7 +63,7 @@ public class PersonDataService {
 						&& p.getLastName().equalsIgnoreCase(lastName));
 	}
 
-	@ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "Person not found")        
+	@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Person not found")        
     public static class PersonNotFoundException extends RuntimeException {
 
         PersonNotFoundException() {
